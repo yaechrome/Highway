@@ -64,9 +64,9 @@ CREATE TABLE `encargado` (
 
 /*Data for the table `encargado` */
 
-insert into `encargado` (`rut_empresa`,`nombre`,`login`,`pass_encargado`) values ('22222222-2','Juan Gonzalez','jgonzalez','5678');
-insert into `encargado` (`rut_empresa`,`nombre`,`login`,`pass_encargado`) values ('11111111-1','Juan Perez','jperez','1234');
-insert into `encargado` (`rut_empresa`,`nombre`,`login`,`pass_encargado`) values ('33333333-3','Juan Tapia','jtapia','9012');
+insert into `encargado` (`rut_empresa`,`nombre`,`login`,`pass_encargado`) values ('22222222-2','Juan Gonzalez','jgonzalez','LWko1bEiDu0=');
+insert into `encargado` (`rut_empresa`,`nombre`,`login`,`pass_encargado`) values ('11111111-1','Juan Perez','jperez','LWko1bEiDu0=');
+insert into `encargado` (`rut_empresa`,`nombre`,`login`,`pass_encargado`) values ('33333333-3','Juan Tapia','jtapia','LWko1bEiDu0=');
 
 /*Table structure for table `compra` */
 

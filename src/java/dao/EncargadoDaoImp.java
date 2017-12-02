@@ -5,6 +5,7 @@
  */
 package dao;
 
+import dto.EncargadoDto;
 import java.security.MessageDigest;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -98,5 +99,37 @@ public class EncargadoDaoImp implements EncargadoDao{
         }
         return base64EncryptedString;
     }
+
+    @Override
+    public EncargadoDto BuscarUsuario(String login) {
+        EncargadoDto dto = new EncargadoDto();
+        try {
+            Connection conexion = Conexion.getConexion();
+            String query = "SELECT * FROM encargado where login = ?";
+            PreparedStatement buscar = conexion.prepareStatement(query);
+            buscar.setString(1, login);
+            ResultSet rs = buscar.executeQuery();
+
+            if(rs.next()) {
+                
+                dto.setRutEmpresa(rs.getString("rut_empresa"));
+                dto.setNombre(rs.getString("nombre"));
+                dto.setPassword(rs.getString("pass_encargado"));
+                dto.setLogin(rs.getString("login"));
+                
+                
+            }
+            buscar.close();
+            conexion.close();
+           
+        } catch (SQLException w) {
+            System.out.println("Error SQL al buscar " + w.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error al buscar " + e.getMessage());
+        }
+        return dto;
+    }
+
+     
     
 }
