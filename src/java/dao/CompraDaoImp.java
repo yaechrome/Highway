@@ -54,6 +54,39 @@ public class CompraDaoImp implements CompraDao{
         return false;
     }
 
+    @Override
+    public ArrayList<CompraDto> listarComprasPorEmpresa(String rutEmpresa) {
+        ArrayList<CompraDto> lista = new ArrayList<CompraDto>();
+        try {
+            Connection conexion = Conexion.getConexion();
+            String query = "select pago,envio,total,encargado,fecha_compra from "
+                    + "compra join encargado on (compra.encargado = encargado.login)"
+                    + "where encargado.rut_empresa = ?";
+            PreparedStatement buscar = conexion.prepareStatement(query);
+            buscar.setString(1, rutEmpresa);
+
+            ResultSet rs = buscar.executeQuery();
+
+            while (rs.next()) {
+                CompraDto dto = new CompraDto();
+                dto.setModoPago(rs.getString("pago"));
+                dto.setEnvio(rs.getString("envio"));
+                dto.setTotal(rs.getInt("total"));
+                dto.setEncargado(rs.getString("encargado"));
+                dto.setFecha(rs.getDate("fecha_compra"));
+
+                lista.add(dto);
+            }
+            buscar.close();
+            conexion.close();
+        } catch (SQLException w) {
+            System.out.println("Error SQL al buscar " + w.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error al buscar " + e.getMessage());
+        }
+        return lista;
+    }
+
  
     
 }

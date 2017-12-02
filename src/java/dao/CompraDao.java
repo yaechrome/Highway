@@ -6,6 +6,7 @@
 package dao;
 
 import dto.CompraDto;
+import java.util.ArrayList;
 
 /**
  *
@@ -14,6 +15,8 @@ import dto.CompraDto;
 public interface CompraDao {
     
     public boolean agregar(CompraDto dto);
+    
+    public ArrayList<CompraDto> listarComprasPorEmpresa (String rutEmpresa);
     
     
 }
