@@ -5,6 +5,8 @@
  */
 package dao;
 
+import dto.EncargadoDto;
+
 /**
  *
  * @author nippo
@@ -16,4 +18,6 @@ public interface EncargadoDao {
     public boolean ValidarLogin(String login);
     
     public String Encriptar(String texto);
+    
+    public EncargadoDto BuscarUsuario(String login);
 }
