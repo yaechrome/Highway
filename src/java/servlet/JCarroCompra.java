@@ -5,6 +5,7 @@
  */
 package servlet;
 
+import dao.CarreteraDaoImp;
 import dto.UltraJson;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -59,8 +60,11 @@ public class JCarroCompra extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //String json = new UltraJson().generate(array);
-        processRequest(request, response);
+        String json = new UltraJson().generate(new CarreteraDaoImp().listar());
+        //hola mundo
+        
+        request.setAttribute("json", json);
+        request.getRequestDispatcher("CarroCompra.jsp").forward(request, response);
     }
 
     /**
