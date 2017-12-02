@@ -18,7 +18,7 @@ import sql.Conexion;
  *
  * @author nippo
  */
-public class CompraDaoImp implements BaseDao<CompraDto>{
+public class CompraDaoImp implements CompraDao{
 
     @Override
     public boolean agregar(CompraDto dto) {
@@ -54,19 +54,6 @@ public class CompraDaoImp implements BaseDao<CompraDto>{
         return false;
     }
 
-    @Override
-    public boolean eliminar(CompraDto dto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean modificar(CompraDto dto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public ArrayList<CompraDto> listar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+ 
     
 }
