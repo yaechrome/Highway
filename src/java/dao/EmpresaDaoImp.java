@@ -5,35 +5,34 @@
  */
 package dao;
 
-import dto.CarreteraDto;
+import dto.EmpresaDto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import sql.Conexion;
 
 /**
  *
  * @author nippo
  */
-public class CarreteraDaoImp implements CarreteraDao {
+public class EmpresaDaoImp implements EmpresaDao {
 
     @Override
-    public ArrayList<CarreteraDto> listar() {
-        ArrayList<CarreteraDto> lista = new ArrayList<CarreteraDto>();
-        try {
+    public EmpresaDto buscarEmpresa(String rut) {
+
+       try {
             Connection conexion = Conexion.getConexion();
-            String query = "SELECT * FROM carretera";
+            String query = "select * from empresa where rut_empresa = ?";
             PreparedStatement buscar = conexion.prepareStatement(query);
 
             ResultSet rs = buscar.executeQuery();
 
-            while (rs.next()) {
-                CarreteraDto dto = new CarreteraDto();
-                dto.setId(rs.getInt("id"));
-                dto.setNombre(rs.getString("nombre"));
-                dto.setPrecio(rs.getInt("precio"));
+            if (rs.next()) {
+                DetalleCompraDto dto = new DetalleCompraDto();
+                dto.setCantidad(rs.getInt("cantidad"));
+                dto.setIdCarretera(rs.getInt("id_carretera"));
+                dto.setIdCompra(rs.getInt("id_compra"));
 
                 lista.add(dto);
             }
