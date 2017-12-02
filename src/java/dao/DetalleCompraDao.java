@@ -12,6 +12,6 @@ import java.util.ArrayList;
  *
  * @author nippo
  */
-public interface DetalleVentaDao extends BaseDao<DetalleCompraDto>{
+public interface DetalleCompraDao extends BaseDao<DetalleCompraDto>{
     public ArrayList<DetalleCompraDto> ListarPorVenta(int numeroVenta);
 }

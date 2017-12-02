@@ -17,7 +17,7 @@ import sql.Conexion;
  *
  * @author nippo
  */
-public class DetalleVentaDaoImp implements DetalleVentaDao {
+public class DetalleCompraDaoImp implements DetalleCompraDao {
 
     @Override
     public ArrayList<DetalleCompraDto> ListarPorVenta(int numeroVenta) {
