@@ -27,7 +27,7 @@ public class DetalleCompraDaoImp implements DetalleCompraDao {
             String query = "SELECT * FROM detalle_compra where id_compra =?";
             PreparedStatement buscar = conexion.prepareStatement(query);
             buscar.setInt(1, numeroVenta);
-            
+
             ResultSet rs = buscar.executeQuery();
 
             while (rs.next()) {
@@ -35,7 +35,7 @@ public class DetalleCompraDaoImp implements DetalleCompraDao {
                 dto.setIdCarretera(rs.getInt("id_carretera"));
                 dto.setCantidad(rs.getInt("cantidad"));
                 dto.setIdCompra(rs.getInt("id_compra"));
-        
+
                 lista.add(dto);
             }
             buscar.close();
@@ -45,7 +45,7 @@ public class DetalleCompraDaoImp implements DetalleCompraDao {
         } catch (Exception e) {
             System.out.println("Error al buscar " + e.getMessage());
         }
-        return lista; 
+        return lista;
     }
 
     @Override
@@ -140,7 +140,7 @@ public class DetalleCompraDaoImp implements DetalleCompraDao {
                 dto.setCantidad(rs.getInt("cantidad"));
                 dto.setIdCarretera(rs.getInt("id_carretera"));
                 dto.setIdCompra(rs.getInt("id_compra"));
-       
+
                 lista.add(dto);
             }
             buscar.close();
@@ -151,6 +151,37 @@ public class DetalleCompraDaoImp implements DetalleCompraDao {
             System.out.println("Error al buscar " + e.getMessage());
         }
         return lista;
+    }
+
+    @Override
+    public boolean DuplicarDetalleCompra(ArrayList<DetalleCompraDto> lista, int idCompraNuevo) {
+        try {
+
+            Connection conexion = Conexion.getConexion();
+
+            for (DetalleCompraDto detalle : lista) {
+                String query = "INSERT INTO detalle_compra ( id_carretera, id_compra, cantidad) VALUES ( ?, ?, ?)";
+
+                PreparedStatement insertar = conexion.prepareStatement(query);
+
+                insertar.setInt(1, detalle.getIdCarretera());
+                insertar.setInt(3, detalle.getCantidad());
+                insertar.setInt(2, idCompraNuevo);
+
+                insertar.execute();
+                insertar.close();
+                
+            }
+            conexion.close();
+            return true;
+            
+        } catch (SQLException w) {
+            System.out.println("Error SQL al agregar " + w.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error al agregar " + e.getMessage());
+        }
+        return false;
+
     }
 
 }

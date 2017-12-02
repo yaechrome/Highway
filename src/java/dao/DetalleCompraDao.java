@@ -13,5 +13,8 @@ import java.util.ArrayList;
  * @author nippo
  */
 public interface DetalleCompraDao extends BaseDao<DetalleCompraDto>{
+    
     public ArrayList<DetalleCompraDto> ListarPorVenta(int numeroVenta);
+    
+    public boolean DuplicarDetalleCompra(ArrayList<DetalleCompraDto> lista, int idCompraNuevo);
 }
