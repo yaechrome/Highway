@@ -20,7 +20,7 @@ public class EmpresaDaoImp implements EmpresaDao {
 
     @Override
     public EmpresaDto buscarEmpresa(String rut) {
-
+        EmpresaDto dto = new EmpresaDto();
        try {
             Connection conexion = Conexion.getConexion();
             String query = "select * from empresa where rut_empresa = ?";
@@ -29,21 +29,22 @@ public class EmpresaDaoImp implements EmpresaDao {
             ResultSet rs = buscar.executeQuery();
 
             if (rs.next()) {
-                DetalleCompraDto dto = new DetalleCompraDto();
-                dto.setCantidad(rs.getInt("cantidad"));
-                dto.setIdCarretera(rs.getInt("id_carretera"));
-                dto.setIdCompra(rs.getInt("id_compra"));
+                
+                dto.setRutEmpresa(rs.getString("rut_empresa"));
+                dto.setNombreEmpresa(rs.getString("nombre_empresa"));
+                dto.setDireccion(rs.getString("direccion"));
 
-                lista.add(dto);
+                
             }
             buscar.close();
             conexion.close();
+            return dto;
         } catch (SQLException w) {
             System.out.println("Error SQL al buscar " + w.getMessage());
         } catch (Exception e) {
             System.out.println("Error al buscar " + e.getMessage());
         }
-        return lista;
+        return dto;
     }
 
 }
