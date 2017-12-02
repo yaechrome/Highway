@@ -5,18 +5,13 @@
  */
 package dao;
 
+import dto.DetalleCompraDto;
 import java.util.ArrayList;
 
 /**
  *
  * @author nippo
  */
-public interface BaseDao<T> {
-    public boolean agregar(T dto);
-    
-    public boolean eliminar (T dto);
-    
-    public boolean modificar(T dto);
-    
-    public ArrayList<T> listar();
+public interface DetalleVentaDao extends BaseDao<DetalleCompraDto>{
+    public ArrayList<DetalleCompraDto> ListarPorVenta(int numeroVenta);
 }

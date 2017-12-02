@@ -9,12 +9,12 @@ package dto;
  *
  * @author nippo
  */
-public class DetalleDto {
+public class DetalleCompraDto {
     private int idCarretera;
     private int idCompra;
     private int cantidad;
 
-    public DetalleDto() {
+    public DetalleCompraDto() {
     }
 
     public int getIdCarretera() {
