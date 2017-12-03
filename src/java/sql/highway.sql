@@ -67,6 +67,9 @@ CREATE TABLE `encargado` (
 insert into `encargado` (`rut_empresa`,`nombre`,`login`,`pass_encargado`) values ('22222222-2','Juan Gonzalez','jgonzalez','LWko1bEiDu0=');
 insert into `encargado` (`rut_empresa`,`nombre`,`login`,`pass_encargado`) values ('11111111-1','Juan Perez','jperez','LWko1bEiDu0=');
 insert into `encargado` (`rut_empresa`,`nombre`,`login`,`pass_encargado`) values ('33333333-3','Juan Tapia','jtapia','LWko1bEiDu0=');
+insert into `encargado` (`rut_empresa`,`nombre`,`login`,`pass_encargado`) values ('22222222-2','Maria Gonzalez','mgonzalez','LWko1bEiDu0=');
+insert into `encargado` (`rut_empresa`,`nombre`,`login`,`pass_encargado`) values ('11111111-1','Maria Perez','mperez','LWko1bEiDu0=');
+insert into `encargado` (`rut_empresa`,`nombre`,`login`,`pass_encargado`) values ('33333333-3','Maria Tapia','mtapia','LWko1bEiDu0=');
 
 /*Table structure for table `compra` */
 
@@ -89,6 +92,8 @@ CREATE TABLE `compra` (
 insert into `compra` (`id_compra`,`pago`,`envio`,`total`,`encargado`,`fecha_compra`) values (1,'Transferencia','Oficina',12000,'jperez','2016-10-28');
 insert into `compra` (`id_compra`,`pago`,`envio`,`total`,`encargado`,`fecha_compra`) values (2,'Pago en Linea','Envio Cliente',4700,'jgonzalez','2017-02-15');
 insert into `compra` (`id_compra`,`pago`,`envio`,`total`,`encargado`,`fecha_compra`) values (3,'Orden de compra','Oficina',8600,'jtapia','2016-01-01');
+insert into `compra` (`id_compra`,`pago`,`envio`,`total`,`encargado`,`fecha_compra`) values (4,'Pago en Linea','Envio Cliente',47000,'mgonzalez','2017-02-20');
+
 
 /*Table structure for table `detalle_compra` */
 
@@ -109,5 +114,4 @@ CREATE TABLE `detalle_compra` (
 insert into `detalle_compra` (`id_carretera`,`id_compra`,`cantidad`) values (1,1,3);
 insert into `detalle_compra` (`id_carretera`,`id_compra`,`cantidad`) values (4,2,1);
 insert into `detalle_compra` (`id_carretera`,`id_compra`,`cantidad`) values (3,3,2);
-
-
+insert into `detalle_compra` (`id_carretera`,`id_compra`,`cantidad`) values (4,4,20);
