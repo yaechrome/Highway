@@ -80,7 +80,7 @@ public class Login extends HttpServlet {
 
             if (!error) {
                 iniciarSesion(new EncargadoDaoImp().BuscarUsuario(nombreLogin), request);
-                response.sendRedirect(request.getContextPath() + "");
+                response.sendRedirect(request.getContextPath() + INDEX_URL_FILE);
             } else {
                 request.setAttribute("mensajeError", mensajeError);
                 request.getRequestDispatcher(ConstanteUtil.LOGIN_URL_FILE).forward(request, response);
