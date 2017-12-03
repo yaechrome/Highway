@@ -76,6 +76,11 @@ public class EncargadoDto {
         }
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "{" + "\"rutEmpresa\": " + "\"" + rutEmpresa + "\""+ ", \"nombre\": " + "\"" + nombre + "\""+ ", \"login\": " + "\"" + login + "\""+ ", \"password\": " + "\"" + password + "\""+ '}';
+    }
     
     
 }

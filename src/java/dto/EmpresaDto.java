@@ -67,6 +67,11 @@ public class EmpresaDto {
         }
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "{" + "\"rutEmpresa\": " + "\"" + rutEmpresa + "\""+ ", \"nombreEmpresa\": " + "\"" + nombreEmpresa + "\""+ ", \"direccion\": " + "\"" + direccion + "\""+ '}';
+    }
     
     
 }

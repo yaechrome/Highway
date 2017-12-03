@@ -61,7 +61,11 @@ public class CarreteraDto {
         }
         return true;
     }
-    
+
+    @Override
+    public String toString() {
+        return "{" + "\"id:\"" + id + ", \"nombre\":" +"\""+ nombre +"\"" +", \"precio\":" + precio + '}';
+    }
     
     
 }

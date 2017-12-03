@@ -5,9 +5,7 @@
  */
 package servlet;
 
-import dao.CompraDaoImp;
 import dao.DetalleCompraDaoImp;
-import dto.CompraDto;
 import dto.UltraJson;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -21,8 +19,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author yaechrome
  */
-@WebServlet(name = "JHistorial", urlPatterns = {"/JHistorial"})
-public class JHistorial extends HttpServlet {
+@WebServlet(name = "JDetalles", urlPatterns = {"/JDetalles"})
+public class JDetalles extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,18 +34,7 @@ public class JHistorial extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet JHistorial</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet JHistorial at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -63,13 +50,9 @@ public class JHistorial extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
-        String ProJson = "";
-        for (CompraDto compra : new CompraDaoImp().listarComprasPorEmpresa("")) {
-            ProJson +=compra.getIdCompra()+":"+ new UltraJson().generate(new DetalleCompraDaoImp().ListarPorVenta(compra.getIdCompra()));
-        }
-        request.setAttribute("ProJson", ProJson);
-        request.getRequestDispatcher("CarroCompra.jsp").forward(request, response);
+        String detalles = new UltraJson().generate(new DetalleCompraDaoImp().listar());      
+        request.setAttribute("json", detalles);
+        request.getRequestDispatcher("/privado/json.jsp").forward(request, response);
     }
 
     /**

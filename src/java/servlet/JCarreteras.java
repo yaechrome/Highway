@@ -19,8 +19,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author yaechrome
  */
-@WebServlet(name = "JCarroCompra", urlPatterns = {"/JCarroCompra"})
-public class JCarroCompra extends HttpServlet {
+@WebServlet(name = "JCarreteras", urlPatterns = {"/JCarreteras"})
+public class JCarreteras extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,19 +33,6 @@ public class JCarroCompra extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet JCarroCompra</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet JCarroCompra at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -60,11 +47,9 @@ public class JCarroCompra extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String json = new UltraJson().generate(new CarreteraDaoImp().listar());
-        //hola mundo
-        
-        request.setAttribute("json", json);
-        request.getRequestDispatcher("CarroCompra.jsp").forward(request, response);
+        String carreteras = new UltraJson().generate(new CarreteraDaoImp().listar());
+        request.setAttribute("json", carreteras);
+        request.getRequestDispatcher("/privado/json.jsp").forward(request, response);
     }
 
     /**

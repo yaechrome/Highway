@@ -97,6 +97,11 @@ public class CompraDto {
         }
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "{" + "\"idCompra\": " + "\"" + idCompra + "\""+ ", \"modoPago\": " + "\"" + modoPago + "\""+ ", \"envio\": " + "\"" + envio + "\""+ ", \"total\": " + "\"" + total + "\""+ ", \"encargado\": " + "\"" + encargado + "\""+ ", \"fecha\": " + "\"" + fecha + "\""+ '}';
+    }
     
     
 }
