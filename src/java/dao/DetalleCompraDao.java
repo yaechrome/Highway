@@ -6,6 +6,7 @@
 package dao;
 
 import dto.DetalleCompraDto;
+import dto.DetallePedido;
 import java.util.ArrayList;
 
 /**
@@ -17,4 +18,6 @@ public interface DetalleCompraDao extends BaseDao<DetalleCompraDto>{
     public ArrayList<DetalleCompraDto> ListarPorVenta(int numeroVenta);
     
     public boolean DuplicarDetalleCompra(ArrayList<DetalleCompraDto> lista, int idCompraNuevo);
+    
+    public ArrayList<DetallePedido> listarDetalleComprasPorEmpresa(String rutEmpresa);
 }

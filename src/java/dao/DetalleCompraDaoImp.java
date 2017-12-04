@@ -6,6 +6,7 @@
 package dao;
 
 import dto.DetalleCompraDto;
+import dto.DetallePedido;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -170,17 +171,52 @@ public class DetalleCompraDaoImp implements DetalleCompraDao {
 
                 insertar.execute();
                 insertar.close();
-                
+
             }
             conexion.close();
             return true;
-            
+
         } catch (SQLException w) {
             System.out.println("Error SQL al agregar " + w.getMessage());
         } catch (Exception e) {
             System.out.println("Error al agregar " + e.getMessage());
         }
         return false;
+
+    }
+
+    @Override
+    public ArrayList<DetallePedido> listarDetalleComprasPorEmpresa(String rutEmpresa) {
+
+        ArrayList<DetallePedido> lista = new ArrayList<DetallePedido>();
+        try {
+            Connection conexion = Conexion.getConexion();
+            String query = "select compra.id_compra, carretera.nombre, carretera.precio, detalle_compra.cantidad\n"
+                    + "from carretera join detalle_compra on (carretera.id = detalle_compra.id_carretera)\n"
+                    + " join compra on (detalle_compra.id_compra = compra.id_compra) join encargado on (compra.encargado = encargado.login)\n"
+                    + "where encargado.rut_empresa = ?";
+            PreparedStatement buscar = conexion.prepareStatement(query);
+            buscar.setString(1, rutEmpresa);
+
+            ResultSet rs = buscar.executeQuery();
+
+            while (rs.next()) {
+                DetallePedido dto = new DetallePedido();
+                dto.id = rs.getInt("compra.id_compra");
+                dto.nombre = rs.getString("carretera.nombre");
+                dto.precio = rs.getInt("carretera.precio");
+                dto.cantidad = rs.getInt("detalle_compra.cantidad");
+
+                lista.add(dto);
+            }
+            buscar.close();
+            conexion.close();
+        } catch (SQLException w) {
+            System.out.println("Error SQL al buscar " + w.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error al buscar " + e.getMessage());
+        }
+        return lista;
 
     }
 
