@@ -6,6 +6,7 @@
 package servlet;
 
 import dao.CompraDaoImp;
+import dao.DetalleCompraDaoImp;
 import dto.EncargadoDto;
 import dto.UltraJson;
 import java.io.IOException;
@@ -54,7 +55,7 @@ public class JHistorial extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
         EncargadoDto encargado = (EncargadoDto) request.getSession().getAttribute(ConstanteUtil.LOGIN_USUARIO);
-        String compras = new UltraJson().generate(new CompraDaoImp().listarComprasPorEmpresa("22222222-2"));  
+        String compras = new UltraJson().generate(new DetalleCompraDaoImp().listarDetalleComprasPorEmpresa("22222222-2"));  
         request.setAttribute("json", compras);
         request.getRequestDispatcher("/privado/json.jsp").forward(request, response);
         

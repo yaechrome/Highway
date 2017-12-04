@@ -1,14 +1,16 @@
-package servlet;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-import dao.EncargadoDaoImp;
+package servlet;
+
+import dao.DetalleCompraDaoImp;
 import dto.EncargadoDto;
+import dto.UltraJson;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,19 +18,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import util.ConstanteUtil;
-import static util.ConstanteUtil.*;
 
 /**
  *
- * @author nippo
+ * @author yaechrome
  */
-@WebServlet(urlPatterns = {"/Login"})
-public class Login extends HttpServlet {
+@WebServlet(name = "JInicio", urlPatterns = {"/JInicio"})
+public class JInicio extends HttpServlet {
 
-     private void iniciarSesion(EncargadoDto encargado, HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        session.setAttribute(ConstanteUtil.LOGIN_USUARIO, encargado);
-    }
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -38,6 +35,14 @@ public class Login extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.addHeader("Access-Control-Allow-Origin", "*");
+        response.addHeader("Access-Control-Allow-Methods", "GET,POST");
+        response.addHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+
+    }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -50,7 +55,21 @@ public class Login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher(LOGIN_URL_FILE).forward(request, response);
+        processRequest(request, response);
+        HttpServletRequest httpRequest = (HttpServletRequest) request;
+        HttpSession session = httpRequest.getSession();
+        EncargadoDto encargado = (EncargadoDto) session.getAttribute(ConstanteUtil.LOGIN_USUARIO);
+        ArrayList<EncargadoDto> lista = new ArrayList<>();
+        lista.add(encargado);
+        String json = new UltraJson().generate(lista);  
+        request.setAttribute("json", json);
+        request.getRequestDispatcher("/privado/json.jsp").forward(request, response);
+    }
+    
+    @Override
+    protected void doOptions(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
     }
 
     /**
@@ -64,27 +83,7 @@ public class Login extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String mensajeError = "default message";
-            boolean error = false;
-            String nombreLogin = request.getParameter("user").trim();
-            String pass = request.getParameter("pass").trim();
-            if (!new EncargadoDaoImp().ValidarLogin(nombreLogin)) {
-                mensajeError = "Usuario no existe";
-                error = true;
-            }
-
-            if (!new EncargadoDaoImp().ValidarPassword(nombreLogin, new EncargadoDaoImp().Encriptar(pass))) {
-                mensajeError = "Clave incorrecta";
-                error = true;
-            }
-
-            if (!error) {
-                iniciarSesion(new EncargadoDaoImp().BuscarUsuario(nombreLogin), request);
-                response.sendRedirect(request.getContextPath() + INDEX_URL_FILE);
-            } else {            
-                request.setAttribute("mensajeError", mensajeError);
-                request.getRequestDispatcher(ConstanteUtil.LOGIN_URL_FILE).forward(request, response);
-            }
+        processRequest(request, response);
     }
 
     /**
