@@ -33,6 +33,9 @@ public class JCarreteras extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.addHeader("Access-Control-Allow-Origin","*");
+        response.addHeader("Access-Control-Allow-Methods","GET,POST");
+        response.addHeader("Access-Control-Allow-Headers","Origin, X-Requested-With, Content-Type, Accept");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -47,7 +50,9 @@ public class JCarreteras extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        processRequest(request, response);
         String carreteras = new UltraJson().generate(new CarreteraDaoImp().listar());
+        
         request.setAttribute("json", carreteras);
         request.getRequestDispatcher("/privado/json.jsp").forward(request, response);
     }
