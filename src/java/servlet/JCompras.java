@@ -15,6 +15,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import dto.Pedido;
+
 /**
  *
  * @author yaechrome
@@ -52,7 +58,7 @@ public class JCompras extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
         
-        String compras = new UltraJson().generate(new CompraDaoImp().listarComprasPorEmpresa(""));  
+        String compras = new UltraJson().generate(new CompraDaoImp().listarComprasPorEmpresa("33333333-3"));  
         request.setAttribute("json", compras);
         request.getRequestDispatcher("/privado/json.jsp").forward(request, response);
     }
@@ -76,6 +82,23 @@ public class JCompras extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        
+        try {
+            String json = request.getReader().readLine();
+            System.out.println(json);
+            ObjectMapper mapper = new ObjectMapper();
+            mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+            Pedido pedido = mapper.readValue(json, Pedido.class);
+            
+            
+            System.out.println("paso");
+        } catch (Exception e) {
+            System.out.println("error: " + e.getLocalizedMessage());
+        }
+        
+        String compras = new UltraJson().generate(new CompraDaoImp().listarComprasPorEmpresa("33333333-3"));
+        request.setAttribute("json", compras);
+        request.getRequestDispatcher("/privado/json.jsp").forward(request, response);
     }
 
     /**
