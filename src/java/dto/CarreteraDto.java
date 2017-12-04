@@ -64,7 +64,7 @@ public class CarreteraDto {
 
     @Override
     public String toString() {
-        return "{" + "\"id:\"" + id + ", \"nombre\":" +"\""+ nombre +"\"" +", \"precio\":" + precio + '}';
+        return "{" + "\"id\":" + id + ", \"nombre\":" +"\""+ nombre +"\"" +", \"precio\":" + precio + '}';
     }
     
     
