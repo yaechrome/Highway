@@ -96,7 +96,8 @@ public class JCompras extends HttpServlet {
             System.out.println("error: " + e.getLocalizedMessage());
         }
         
-        String compras = new UltraJson().generate(new CompraDaoImp().listarComprasPorEmpresa("33333333-3"));
+        // String compras = new UltraJson().generate(new CompraDaoImp().listarComprasPorEmpresa("33333333-3"));
+        String compras = "{\"pedido\":10000,\"detalles\":[{\"id\":1,\"nombre\":\"Ruta18\",\"precio\":100000,\"cantidad\":2},{\"id\":3,\"nombre\":\"Ruta38\",\"precio\":300000,\"cantidad\":4},{\"id\":2,\"nombre\":\"Ruta28\",\"precio\":200000,\"cantidad\":1},{\"id\":2,\"nombre\":\"Ruta28\",\"precio\":200000,\"cantidad\":8}],\"retiro\":\"Oficina\"}";
         request.setAttribute("json", compras);
         request.getRequestDispatcher("/privado/json.jsp").forward(request, response);
     }
