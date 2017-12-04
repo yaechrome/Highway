@@ -59,8 +59,8 @@ public class DetalleCompraDaoImp implements DetalleCompraDao {
             PreparedStatement insertar = conexion.prepareStatement(query);
 
             insertar.setInt(1, dto.getIdCarretera());
-            insertar.setInt(3, dto.getIdCompra());
-            insertar.setInt(2, dto.getCantidad());
+            insertar.setInt(2, dto.getIdCompra());
+            insertar.setInt(3, dto.getCantidad());
 
             insertar.execute();
             insertar.close();

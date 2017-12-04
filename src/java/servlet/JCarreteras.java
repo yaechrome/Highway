@@ -52,7 +52,6 @@ public class JCarreteras extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
         String carreteras = new UltraJson().generate(new CarreteraDaoImp().listar());
-        
         request.setAttribute("json", carreteras);
         request.getRequestDispatcher("/privado/json.jsp").forward(request, response);
     }

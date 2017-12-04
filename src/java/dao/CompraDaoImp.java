@@ -25,16 +25,14 @@ public class CompraDaoImp implements CompraDao{
         try {
             Connection conexion = Conexion.getConexion();
 
-            String query = "insert into compra (id_compra, pago, envio, total, encargado, feha_compra) values (?,?,?,?,?,?)";
+            String query = "insert into compra (pago, envio, total, encargado, fecha_compra) values (?,?,?,?,now())";
 
             PreparedStatement insertar = conexion.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
-            insertar.setInt(1, dto.getIdCompra());
-            insertar.setString(2, dto.getModoPago());
-            insertar.setString(3, dto.getEnvio());
-            insertar.setInt(4, dto.getTotal());
-            insertar.setString(5, dto.getEncargado());
-            insertar.setDate(6, new java.sql.Date(dto.getFecha().getTime()));
+            insertar.setString(1, dto.getModoPago());
+            insertar.setString(2, dto.getEnvio());
+            insertar.setInt(3, dto.getTotal());
+            insertar.setString(4, dto.getEncargado());
             
 
             insertar.executeUpdate();
@@ -59,7 +57,7 @@ public class CompraDaoImp implements CompraDao{
         ArrayList<CompraDto> lista = new ArrayList<CompraDto>();
         try {
             Connection conexion = Conexion.getConexion();
-            String query = "select pago,envio,total,encargado,fecha_compra from "
+            String query = "select id_compra, pago,envio,total,encargado,fecha_compra from "
                     + "compra join encargado on (compra.encargado = encargado.login)"
                     + "where encargado.rut_empresa = ?";
             PreparedStatement buscar = conexion.prepareStatement(query);
@@ -69,6 +67,7 @@ public class CompraDaoImp implements CompraDao{
 
             while (rs.next()) {
                 CompraDto dto = new CompraDto();
+                dto.setIdCompra(rs.getInt("id_compra"));
                 dto.setModoPago(rs.getString("pago"));
                 dto.setEnvio(rs.getString("envio"));
                 dto.setTotal(rs.getInt("total"));
