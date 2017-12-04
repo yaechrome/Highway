@@ -14,10 +14,10 @@ import java.util.ArrayList;
 public class UltraJson<T> {
     public String generate(ArrayList<T> array) {
         String json = "[\n";
-        for (T t : array) {
-            json +=  "\t" + t.toString() + ",\n";
+        for (int i = 0; i < array.size(); i++) {
+            json +=  "    " + array.get(i).toString() + (i<array.size()-1 ? "," : "") + "\n";
         }
-        json += "\n]";
+        json += "]";
         return json;
     }
 }
