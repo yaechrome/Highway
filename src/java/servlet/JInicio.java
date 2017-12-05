@@ -6,6 +6,9 @@
 package servlet;
 
 import dao.DetalleCompraDaoImp;
+import dao.EmpresaDaoImp;
+import dao.EncargadoDaoImp;
+import dto.EmpresaDto;
 import dto.EncargadoDto;
 import dto.UltraJson;
 import java.io.IOException;
@@ -58,8 +61,15 @@ public class JInicio extends HttpServlet {
         processRequest(request, response);
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpSession session = httpRequest.getSession();
+        
         EncargadoDto encargado = (EncargadoDto) session.getAttribute(ConstanteUtil.LOGIN_USUARIO);
-        String json = encargado != null ? encargado.toString() : "{\"nombre\": \"ERROR!\"}";
+        encargado = new EncargadoDaoImp().BuscarUsuario("jperez");
+        EmpresaDto empresa = new EmpresaDaoImp().buscarEmpresa(encargado.getRutEmpresa());
+        
+        String encargadoJson = encargado != null ? encargado.toString() : "{\"nombre\": \"ERROR!\"}";
+        String empresaJson = empresa.toString();
+        String json = "{\"encargado\": " + encargadoJson + ", \"empresa\": " + empresaJson + "}";
+                
         request.setAttribute("json", json);
         request.getRequestDispatcher("/privado/json.jsp").forward(request, response);
     }
