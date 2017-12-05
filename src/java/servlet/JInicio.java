@@ -59,9 +59,7 @@ public class JInicio extends HttpServlet {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpSession session = httpRequest.getSession();
         EncargadoDto encargado = (EncargadoDto) session.getAttribute(ConstanteUtil.LOGIN_USUARIO);
-        ArrayList<EncargadoDto> lista = new ArrayList<>();
-        lista.add(encargado);
-        String json = new UltraJson().generate(lista);  
+        String json = encargado != null ? encargado.toString() : "{\"nombre\": \"ERROR!\"}";
         request.setAttribute("json", json);
         request.getRequestDispatcher("/privado/json.jsp").forward(request, response);
     }
