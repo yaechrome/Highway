@@ -60,7 +60,7 @@ public class JHistorial extends HttpServlet {
         HttpSession session = httpRequest.getSession();
         
         EncargadoDto encargado = (EncargadoDto) session.getAttribute(ConstanteUtil.LOGIN_USUARIO);
-        encargado = new EncargadoDaoImp().BuscarUsuario("jperez");
+        encargado = new EncargadoDaoImp().BuscarUsuario(encargado.getLogin());
         
         ArrayList<DetallePedido> detallesPedido = new DetalleCompraDaoImp()
                 .listarDetalleComprasPorEmpresa(encargado.getRutEmpresa());

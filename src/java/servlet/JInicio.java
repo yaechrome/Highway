@@ -63,7 +63,7 @@ public class JInicio extends HttpServlet {
         HttpSession session = httpRequest.getSession();
         
         EncargadoDto encargado = (EncargadoDto) session.getAttribute(ConstanteUtil.LOGIN_USUARIO);
-        encargado = new EncargadoDaoImp().BuscarUsuario("jperez");
+        encargado = new EncargadoDaoImp().BuscarUsuario(encargado.getLogin());
         EmpresaDto empresa = new EmpresaDaoImp().buscarEmpresa(encargado.getRutEmpresa());
         
         String encargadoJson = encargado != null ? encargado.toString() : "{\"nombre\": \"ERROR!\"}";
