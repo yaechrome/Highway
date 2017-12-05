@@ -11,7 +11,7 @@ package util;
  */
 public class ConstanteUtil {
  
-    public static final String LOGIN_URL_PAGE = "http://localhost:8080/Highway/Login";
+    public static final String LOGIN_URL_PAGE = "http://localhost:8080/Login";
     public static final String LOGIN_URL_FILE = "/login.jsp";
     public static final String LOGIN_USUARIO = "sesionUsuario";
     public static final String INDEX_URL_FILE = "/index.html";
