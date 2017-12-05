@@ -10,6 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Login</title>
+        <link rel="stylesheet" href="css/style.css" media="all" type="text/css">
     </head>
     <body>
         <header>
@@ -39,9 +40,7 @@
                             <input class="form-control" type="password" name="pass" required placeholder="Password"/>
                         </div>
                         
-                        <input class="log-btn" type="submit" name="submit" value="Ingresar" />
-                        <input class="log-btn" type="reset" name="reset" value="Limpiar" />
-                        
+                        <input class="boton_chico" type="submit" name="submit" value="Ingresar" />
                    
                     </fieldset>  
                 </form>
