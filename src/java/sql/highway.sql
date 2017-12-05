@@ -90,11 +90,18 @@ CREATE TABLE `compra` (
 /*Data for the table `compra` */
 
 insert into `compra` (`id_compra`,`pago`,`envio`,`total`,`encargado`,`fecha_compra`) values (1,'Transferencia','Oficina',12000,'jperez','2016-10-28');
-insert into `compra` (`id_compra`,`pago`,`envio`,`total`,`encargado`,`fecha_compra`) values (2,'Pago en Linea','Envio Cliente',4700,'jgonzalez','2017-02-15');
-insert into `compra` (`id_compra`,`pago`,`envio`,`total`,`encargado`,`fecha_compra`) values (3,'Orden de compra','Oficina',8600,'jtapia','2016-01-01');
+insert into `compra` (`id_compra`,`pago`,`envio`,`total`,`encargado`,`fecha_compra`) values (2,'Pago en Linea','Envio Cliente',4700,'jgonzalez','2016-12-15');
+insert into `compra` (`id_compra`,`pago`,`envio`,`total`,`encargado`,`fecha_compra`) values (3,'Orden de compra','Oficina',8600,'jtapia','2017-01-01');
 insert into `compra` (`id_compra`,`pago`,`envio`,`total`,`encargado`,`fecha_compra`) values (4,'Pago en Linea','Envio Cliente',47000,'mgonzalez','2017-02-20');
-
-
+insert into `compra` (`id_compra`,`pago`,`envio`,`total`,`encargado`,`fecha_compra`) values (5,'Pago en Linea','Envio Cliente',200000,'mgonzalez','2017-02-23');
+insert into `compra` (`id_compra`,`pago`,`envio`,`total`,`encargado`,`fecha_compra`) values (6,'Orden de compra','Oficina',90500,'jtapia','2017-02-24');
+insert into `compra` (`id_compra`,`pago`,`envio`,`total`,`encargado`,`fecha_compra`) values (7,'Pago en Linea','Envio Cliente',200000,'jtapia','2017-02-24');
+insert into `compra` (`id_compra`,`pago`,`envio`,`total`,`encargado`,`fecha_compra`) values (8,'Transferencia','Oficina',12000,'mperez','2017-02-28');
+insert into `compra` (`id_compra`,`pago`,`envio`,`total`,`encargado`,`fecha_compra`) values (9,'Orden de compra','Oficina',40000,'jperez','2017-02-28');
+insert into `compra` (`id_compra`,`pago`,`envio`,`total`,`encargado`,`fecha_compra`) values (10,'Transferencia','Envio Cliente',12000,'jperez','2017-02-28');
+insert into `compra` (`id_compra`,`pago`,`envio`,`total`,`encargado`,`fecha_compra`) values (11,'Transferencia','Oficina',200000,'jperez','2017-03-02');
+insert into `compra` (`id_compra`,`pago`,`envio`,`total`,`encargado`,`fecha_compra`) values (12,'Pago en Linea','Oficina',40000,'mtapia','2017-03-02');
+insert into `compra` (`id_compra`,`pago`,`envio`,`total`,`encargado`,`fecha_compra`) values (13,'Pago en Linea','Oficina',40000,'jgonzalez','2017-03-04');
 /*Table structure for table `detalle_compra` */
 
 DROP TABLE IF EXISTS `detalle_compra`;
@@ -114,4 +121,32 @@ CREATE TABLE `detalle_compra` (
 insert into `detalle_compra` (`id_carretera`,`id_compra`,`cantidad`) values (1,1,3);
 insert into `detalle_compra` (`id_carretera`,`id_compra`,`cantidad`) values (4,2,1);
 insert into `detalle_compra` (`id_carretera`,`id_compra`,`cantidad`) values (3,3,2);
-insert into `detalle_compra` (`id_carretera`,`id_compra`,`cantidad`) values (4,4,20);
+insert into `detalle_compra` (`id_carretera`,`id_compra`,`cantidad`) values (4,4,10);
+
+insert into `detalle_compra` (`id_carretera`,`id_compra`,`cantidad`) values (1,5,10);
+insert into `detalle_compra` (`id_carretera`,`id_compra`,`cantidad`) values (2,5,6);
+insert into `detalle_compra` (`id_carretera`,`id_compra`,`cantidad`) values (3,5,20);
+insert into `detalle_compra` (`id_carretera`,`id_compra`,`cantidad`) values (4,5,10);
+
+insert into `detalle_compra` (`id_carretera`,`id_compra`,`cantidad`) values (1,6,10);
+insert into `detalle_compra` (`id_carretera`,`id_compra`,`cantidad`) values (2,6,6);
+insert into `detalle_compra` (`id_carretera`,`id_compra`,`cantidad`) values (4,6,5);
+
+insert into `detalle_compra` (`id_carretera`,`id_compra`,`cantidad`) values (1,7,10);
+insert into `detalle_compra` (`id_carretera`,`id_compra`,`cantidad`) values (2,7,6);
+insert into `detalle_compra` (`id_carretera`,`id_compra`,`cantidad`) values (3,7,20);
+insert into `detalle_compra` (`id_carretera`,`id_compra`,`cantidad`) values (4,7,10);
+
+insert into `detalle_compra` (`id_carretera`,`id_compra`,`cantidad`) values (1,8,3);
+
+insert into `detalle_compra` (`id_carretera`,`id_compra`,`cantidad`) values (1,9,10);
+insert into `detalle_compra` (`id_carretera`,`id_compra`,`cantidad`) values (1,10,3)
+;
+insert into `detalle_compra` (`id_carretera`,`id_compra`,`cantidad`) values (1,11,10);
+insert into `detalle_compra` (`id_carretera`,`id_compra`,`cantidad`) values (2,11,6);
+insert into `detalle_compra` (`id_carretera`,`id_compra`,`cantidad`) values (3,11,20);
+insert into `detalle_compra` (`id_carretera`,`id_compra`,`cantidad`) values (4,11,10);
+
+insert into `detalle_compra` (`id_carretera`,`id_compra`,`cantidad`) values (1,12,10);
+insert into `detalle_compra` (`id_carretera`,`id_compra`,`cantidad`) values (1,13,10);
+
