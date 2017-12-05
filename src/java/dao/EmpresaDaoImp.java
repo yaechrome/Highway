@@ -25,6 +25,7 @@ public class EmpresaDaoImp implements EmpresaDao {
             Connection conexion = Conexion.getConexion();
             String query = "select * from empresa where rut_empresa = ?";
             PreparedStatement buscar = conexion.prepareStatement(query);
+            buscar.setString(1, rut);
 
             ResultSet rs = buscar.executeQuery();
 
