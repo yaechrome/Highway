@@ -34,7 +34,7 @@ public class JCarreteras extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.addHeader("Access-Control-Allow-Origin","*");
-        response.addHeader("Access-Control-Allow-Methods","GET,POST");
+        response.addHeader("Access-Control-Allow-Methods","GET, POST, DELETE, PUT, OPTIONS");
         response.addHeader("Access-Control-Allow-Headers","Origin, X-Requested-With, Content-Type, Accept");
     }
 
