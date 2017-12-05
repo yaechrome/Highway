@@ -25,8 +25,8 @@ import dto.DetalleCompraDto;
 import dto.DetallePedido;
 import dto.EncargadoDto;
 import dto.Pedido;
+import javax.servlet.http.HttpSession;
 import util.ConstanteUtil;
-
 
 /**
  *
@@ -34,7 +34,6 @@ import util.ConstanteUtil;
  */
 @WebServlet(name = "JCompras", urlPatterns = {"/JCompras"})
 public class JCompras extends HttpServlet {
-    
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -47,9 +46,9 @@ public class JCompras extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.addHeader("Access-Control-Allow-Origin","*");
-        response.addHeader("Access-Control-Allow-Methods","GET, POST, DELETE, PUT, OPTIONS");
-        response.addHeader("Access-Control-Allow-Headers","Origin, X-Requested-With, Content-Type, Accept");
+        response.addHeader("Access-Control-Allow-Origin", "*");
+        response.addHeader("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT, OPTIONS");
+        response.addHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -65,13 +64,15 @@ public class JCompras extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        EncargadoDto encargado = (EncargadoDto) request.getSession().getAttribute(ConstanteUtil.LOGIN_USUARIO);
-        String compras = new UltraJson().generate(new CompraDaoImp().listarComprasPorEmpresa(encargado.getRutEmpresa()));  
+        HttpServletRequest httpRequest = (HttpServletRequest) request;
+        HttpSession session = httpRequest.getSession();
+        
+        EncargadoDto encargado = (EncargadoDto) session.getAttribute(ConstanteUtil.LOGIN_USUARIO);
+        String compras = new UltraJson().generate(new CompraDaoImp().listarComprasPorEmpresa(encargado.getRutEmpresa()));
         request.setAttribute("json", compras);
         request.getRequestDispatcher("/privado/json.jsp").forward(request, response);
     }
-    
-    
+
     @Override
     protected void doOptions(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -92,6 +93,10 @@ public class JCompras extends HttpServlet {
         processRequest(request, response);
         //EncargadoDto encargado = (EncargadoDto) request.getSession().getAttribute(ConstanteUtil.LOGIN_USUARIO);
         try {
+            HttpServletRequest httpRequest = (HttpServletRequest) request;
+            HttpSession session = httpRequest.getSession();
+
+            EncargadoDto encargado = (EncargadoDto) session.getAttribute(ConstanteUtil.LOGIN_USUARIO);
             String json = request.getReader().readLine();
             System.out.println(json);
             ObjectMapper mapper = new ObjectMapper();
@@ -99,36 +104,33 @@ public class JCompras extends HttpServlet {
             Pedido pedido = mapper.readValue(json, Pedido.class);
             int suma = 0;
             for (DetallePedido detalle : pedido.detalle) {
-                suma += detalle.precio*detalle.cantidad;
+                suma += detalle.precio * detalle.cantidad;
             }
             CompraDto compra = new CompraDto();
             compra.setEnvio(pedido.retiro);
             compra.setModoPago(pedido.pago);
             compra.setTotal(suma);
-            compra.setEncargado("jperez");
-            if(new CompraDaoImp().agregar(compra)){
+            compra.setEncargado(encargado.getLogin());
+            if (new CompraDaoImp().agregar(compra)) {
                 for (DetallePedido detalle : pedido.detalle) {
                     DetalleCompraDto dto = new DetalleCompraDto();
                     dto.setIdCarretera(detalle.id);
                     dto.setCantidad(detalle.cantidad);
                     dto.setIdCompra(compra.getIdCompra());
-                    if(new DetalleCompraDaoImp().agregar(dto)){
+                    if (new DetalleCompraDaoImp().agregar(dto)) {
                         System.out.println("Funcionó");
                     }
                 }
             }
             String detalles = new UltraJson().generate(pedido.detalle);
-            String compras = "{\"pedido\":"+compra.getIdCompra()+",\"detalles\":"+detalles+",\"retiro\":\""+compra.getEnvio()+"\"}";
+            String compras = "{\"pedido\":" + compra.getIdCompra() + ",\"detalles\":" + detalles + ",\"retiro\":\"" + compra.getEnvio() + "\"}";
             System.out.println("paso");
             request.setAttribute("json", compras);
         } catch (Exception e) {
             System.out.println("error: " + e.getLocalizedMessage());
         }
-        
+
         // String compras = new UltraJson().generate(new CompraDaoImp().listarComprasPorEmpresa("33333333-3"));
-        
-        
-        
         request.getRequestDispatcher("/privado/json.jsp").forward(request, response);
     }
 

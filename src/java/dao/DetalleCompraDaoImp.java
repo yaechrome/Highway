@@ -191,7 +191,7 @@ public class DetalleCompraDaoImp implements DetalleCompraDao {
         ArrayList<DetallePedido> lista = new ArrayList<DetallePedido>();
         try {
             Connection conexion = Conexion.getConexion();
-            String query = "select compra.id_compra, carretera.nombre, carretera.precio, detalle_compra.cantidad\n"
+            String query = "select compra.id_compra, carretera.nombre, carretera.precio, detalle_compra.cantidad, carretera.id\n"
                     + "from carretera join detalle_compra on (carretera.id = detalle_compra.id_carretera)\n"
                     + " join compra on (detalle_compra.id_compra = compra.id_compra) join encargado on (compra.encargado = encargado.login)\n"
                     + "where encargado.rut_empresa = ?";
@@ -202,7 +202,8 @@ public class DetalleCompraDaoImp implements DetalleCompraDao {
 
             while (rs.next()) {
                 DetallePedido dto = new DetallePedido();
-                dto.id = rs.getInt("compra.id_compra");
+                dto.idCompra = rs.getInt("compra.id_compra");
+                dto.id = rs.getInt("carretera.id");
                 dto.nombre = rs.getString("carretera.nombre");
                 dto.precio = rs.getInt("carretera.precio");
                 dto.cantidad = rs.getInt("detalle_compra.cantidad");

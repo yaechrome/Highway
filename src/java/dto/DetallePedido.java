@@ -14,10 +14,11 @@ public class DetallePedido {
     public Integer cantidad;
     public String nombre;
     public Integer precio;
+    public Integer idCompra;
 
     @Override
     public String toString() {
-        return "{" + "\"id\": " + "\"" + id + "\""+ ", \"cantidad\": " + "\"" + cantidad + "\""+ ", \"nombre\": " + "\"" + nombre + "\""+ ", \"precio\": " + "\"" + precio + "\""+ '}';
+        return "{" + "\"id\": " + "\"" + id + "\""+ ", \"cantidad\": " + "\"" + cantidad + "\""+ ", \"nombre\": " + "\"" + nombre + "\""+ ", \"precio\": " + "\"" + precio + "\""+ ", \"idCompra\": " + idCompra +'}';
         
     }
     
