@@ -5,17 +5,19 @@
  */
 package servlet;
 
-import dao.CompraDaoImp;
 import dao.DetalleCompraDaoImp;
+import dao.EncargadoDaoImp;
+import dto.DetallePedido;
 import dto.EncargadoDto;
 import dto.UltraJson;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import util.ConstanteUtil;
 
 /**
@@ -54,8 +56,16 @@ public class JHistorial extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        EncargadoDto encargado = (EncargadoDto) request.getSession().getAttribute(ConstanteUtil.LOGIN_USUARIO);
-        String compras = new UltraJson().generate(new DetalleCompraDaoImp().listarDetalleComprasPorEmpresa("22222222-2"));  
+        HttpServletRequest httpRequest = (HttpServletRequest) request;
+        HttpSession session = httpRequest.getSession();
+        
+        EncargadoDto encargado = (EncargadoDto) session.getAttribute(ConstanteUtil.LOGIN_USUARIO);
+        encargado = new EncargadoDaoImp().BuscarUsuario("jperez");
+        
+        ArrayList<DetallePedido> detallesPedido = new DetalleCompraDaoImp()
+                .listarDetalleComprasPorEmpresa(encargado.getRutEmpresa());
+        String compras = new UltraJson().generate(detallesPedido);
+        
         request.setAttribute("json", compras);
         request.getRequestDispatcher("/privado/json.jsp").forward(request, response);
         
