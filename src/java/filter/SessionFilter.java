@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.Arrays;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -27,14 +29,29 @@ import static util.ConstanteUtil.LOGIN_URL_PAGE;
  *
  * @author nippo
  */
-@WebFilter(filterName = "SessionFilter", urlPatterns = {"/privado/*"})
+@WebFilter(filterName = "SessionFilter", urlPatterns = {"/*"})
 public class SessionFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request,
             ServletResponse response,
             FilterChain chain) throws IOException, ServletException {
-
+        
+        ArrayList<String> privateURIs = new ArrayList(Arrays.asList(
+            "/JCarreteras",
+            "/JCompras",
+            "/JDetalles",
+            "/JHistorial",
+            "/JInicio",
+            "/index.html"
+        ));
+        String currentURI = ((HttpServletRequest) request).getRequestURI();
+        boolean isPublicURI = !privateURIs.contains(currentURI);
+        if (isPublicURI) {
+            chain.doFilter(request, response);
+            return;
+        }
+        
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         httpResponse.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
